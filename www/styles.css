@@ -1,0 +1,91 @@
+:root {
+  --bg: #f9fafb;          /* page background */
+  --card: #ffffff;       /* card background */
+  --text: #111827;       /* primary text */
+  --muted: #6b7280;      /* secondary text */
+  --border: #e5e7eb;     /* subtle borders */
+  --accent: #2563eb;     /* blue accent */
+  --success: #16a34a;    /* green highlight */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+               Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 2.5rem;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin: 0 0 0.5rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+h2 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 1rem 0;
+  color: #1f2937;
+}
+
+.accent {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.highlight {
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-left: 4px solid var(--success);
+  border-radius: 8px;
+  color: #14532d;
+}
+
+.footer {
+  margin-top: 2.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .card {
+    padding: 2rem 1.5rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
