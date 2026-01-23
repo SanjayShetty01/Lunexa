@@ -1,9 +1,13 @@
 box::use(./components/mod_numeric_input)
+box::use(htmltools)
+box::use(shinyWidgets)
 
 #'@export
 arbitrage_UI <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
+    
+    shiny::br(),
     shiny::fluidRow(shiny::column(
       6,
       mod_numeric_input$numeric_input_ui(
@@ -11,17 +15,22 @@ arbitrage_UI <- function(id) {
         label = "Enter the Odd 1",
         step = 0.01,
       )
-    )),
-    shiny::fluidRow(shiny::column(
+    ),
+    
+    shiny::br(),
+    shiny::column(
       6,
       mod_numeric_input$numeric_input_ui(
         id = ns("arbitrage_odd2"),
         label = "Enter the Odd 2",
         step = 0.01,
       )
-    )),
+    )
+    ),
+    shiny::br(),
     shiny::fluidRow(shiny::column(
       6,
+      offset = 3,
       mod_numeric_input$numeric_input_ui(
         id = ns("total_stake"),
         label = "Total Stake",
@@ -29,15 +38,18 @@ arbitrage_UI <- function(id) {
       )
     )),
     
-    
-    # shiny::fluidRow(shiny::column(
-    #   6,
-    #   shiny::actionButton(
-    #     id = ("total_stake"),
-    #     label = "Total Stake",
-    #     step = 1,
-    #   )
-    # ))
+    shiny::br(),
+    shiny::fluidRow(shiny::column(
+      8,
+      offset = 2,
+      shinyWidgets::actionBttn(
+        inputId = ns("submit_value"),
+        label = "Calculate Arbitrage",
+        style = "material-flat",
+        color = "primary"
+      ) |>
+        htmltools::tagAppendAttributes(style = "width: inherit;")
+    ))
     
   
   )
