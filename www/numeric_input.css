@@ -1,14 +1,12 @@
 .input-left-label {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
+  display: ruby;
 }
 
 .input-left-label span {
-  min-width: 140px;
+  min-width: 30%;
   color: #374151;
 }
 
 .input-left-label input {
-  width: 120px;
+  width: 60%;
 }
