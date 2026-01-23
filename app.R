@@ -12,10 +12,10 @@ header <- bs4Dash::dashboardHeader(title = "Lunexa")
 sidebar <- bs4Dash::dashboardSidebar(mod_sidebar_tab$sidebarMenu(), 
                                      minified = T)
 
-body <- bs4DashBody(mod_tab_main_page$main_body('app'))
+#body <- bs4DashBody(mod_tab_main_page$main_body('app'))
 
 ui <- shiny::fluidPage(
-  
+
   tags$head(
     tags$link(rel = "stylesheet", href = "numeric_input.css")
     ),
@@ -23,12 +23,12 @@ ui <- shiny::fluidPage(
   bs4Dash::dashboardPage(
     header = header,
     sidebar = sidebar,
-    body = body,
+    body = bs4DashBody(mod_tab_main_page$main_body("app")),
   )
 )
 
 server <- function(input, output, session) {
-  mod_tab_main_page$main_body_server('app')
+  mod_tab_main_page$main_body_server("app")
 }
 
 

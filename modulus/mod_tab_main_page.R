@@ -12,7 +12,7 @@ main_body <- function(id){
     ),
     bs4Dash::tabItem(
       tabName = 'arbitrage_tab',
-      mod_arbitrage_page$aarbitrage_UI("arbitrage_tab")
+      mod_arbitrage_page$arbitrage_UI(ns("arbitrage_tab"))
     ),
     bs4Dash::tabItem(
       tabName = 'post_bet_hedge'
@@ -23,10 +23,8 @@ main_body <- function(id){
 #'@export
 main_body_server <- function(id){
   
-  ns <- shiny::NS(id)
-  
-  shiny::moduleServer(id, function(input, output, session){
-    mod_arbitrage_page$arbitrage_server(ns("arbitrage_tab"))
+  shiny::moduleServer(id ,function(id,input, output, session){
+    mod_arbitrage_page$arbitrage_server("arbitrage_tab")
     
   })
 }

@@ -19,8 +19,10 @@ numeric_input_ui <- function(id, label, value = NA, ...) {
 
 #' @export
 numeric_input_server <- function(id) {
+  
   shiny::moduleServer(id, function(input, output, session) {
-    browser()
+
+    
     shiny::observeEvent(input$value, {
       if (!is.na(input$value) && input$value < 0) {
         shiny::updateNumericInput(
