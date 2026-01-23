@@ -12,8 +12,6 @@ header <- bs4Dash::dashboardHeader(title = "Lunexa")
 sidebar <- bs4Dash::dashboardSidebar(mod_sidebar_tab$sidebarMenu(), 
                                      minified = T)
 
-#body <- bs4DashBody(mod_tab_main_page$main_body('app'))
-
 ui <- shiny::fluidPage(
 
   tags$head(
