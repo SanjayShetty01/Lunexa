@@ -4,7 +4,8 @@ library(bs4Dash)
 box::use(
   ./modulus/mod_arbitrage_page,
   ./modulus/mod_sidebar_tab,
-  ./modulus/mod_tab_main_page
+  ./modulus/mod_tab_main_page,
+  ./modulus/mod_post_bet_hedge_page
 )
 
 header <- bs4Dash::dashboardHeader(title = "Lunexa")
