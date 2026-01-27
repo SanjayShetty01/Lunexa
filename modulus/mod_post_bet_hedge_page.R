@@ -30,8 +30,42 @@ post_bet_hedge_page_UI <- function(id) {
     shiny::br(),
     shiny::fluidRow(shiny::column(
       6,
-      offset = 3
+      offset = 3,
+      shiny::selectInput(
+        inputId = ns("calculation_type"),
+        label = "Profit or Breakeven",
+        choices = list("Breakeven" = "breakeven", 
+                       "Guaranteed Profit in Rupees" = "guaranteed_rupees", 
+                       "Guaranteed Profit in %" = "guaranteed_percent"),
+        selected = 'breakeven'
+      )
     )),
+    
+    shiny::br(),
+    
+    shiny::conditionalPanel(
+      condition = "input.calculation_type === 'breakeven'", 
+      ns = ns
+    ),
+    shiny::conditionalPanel(
+      condition = "input.calculation_type === 'guaranteed_rupees'",
+      mod_numeric_input$numeric_input_ui(
+        id = ns("expected_profit_amt"),
+        label = "Expected Profit (Amount)",
+        step = 1,
+      ),
+      ns = ns
+      ),
+    
+    shiny::conditionalPanel(
+      condition = "input.calculation_type === 'guaranteed_percent'", 
+      mod_numeric_input$numeric_input_ui(
+        id = ns("expected_profit_pct"),
+        label = "Expected Profit (Percentage)",
+        step = 1,
+      ),
+      ns = ns
+    ),
     
     shiny::br(),
     shiny::fluidRow(shiny::column(
