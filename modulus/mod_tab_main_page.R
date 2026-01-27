@@ -1,4 +1,6 @@
 box::use(./mod_arbitrage_page)
+box::use(./mod_post_bet_hedge_page)
+
 
 #'@export
 main_body <- function(id){
@@ -15,7 +17,8 @@ main_body <- function(id){
       mod_arbitrage_page$arbitrage_UI(ns("arbitrage_tab"))
     ),
     bs4Dash::tabItem(
-      tabName = 'post_bet_hedge'
+      tabName = 'post_bet_hedge',
+      mod_post_bet_hedge_page$post_bet_hedge_page_UI(ns("bet_hedge_tab"))
     )
   )
 }
