@@ -29,15 +29,15 @@ arbitrage_UI <- function(id) {
     )
     ),
     shiny::br(),
-    # shiny::fluidRow(shiny::column(
-    #   6,
-    #   offset = 3,
-    #   mod_numeric_input$numeric_input_ui(
-    #     id = ns("total_stake"),
-    #     label = "Total Stake",
-    #     step = 1,
-    #   )
-    # )),
+    shiny::fluidRow(shiny::column(
+      6,
+      offset = 3,
+      mod_numeric_input$numeric_input_ui(
+        id = ns("total_stake"),
+        label = "Total Stake",
+        step = 1,
+      )
+    )),
     
     shiny::br(),
     shiny::fluidRow(shiny::column(
