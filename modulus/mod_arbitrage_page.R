@@ -1,6 +1,7 @@
 box::use(./components/mod_numeric_input)
 box::use(htmltools)
 box::use(shinyWidgets)
+box::use(../functions/check_arbitrage)
 
 #'@export
 arbitrage_UI <- function(id) {
@@ -28,15 +29,15 @@ arbitrage_UI <- function(id) {
     )
     ),
     shiny::br(),
-    shiny::fluidRow(shiny::column(
-      6,
-      offset = 3,
-      mod_numeric_input$numeric_input_ui(
-        id = ns("total_stake"),
-        label = "Total Stake",
-        step = 1,
-      )
-    )),
+    # shiny::fluidRow(shiny::column(
+    #   6,
+    #   offset = 3,
+    #   mod_numeric_input$numeric_input_ui(
+    #     id = ns("total_stake"),
+    #     label = "Total Stake",
+    #     step = 1,
+    #   )
+    # )),
     
     shiny::br(),
     shiny::fluidRow(shiny::column(
@@ -49,7 +50,9 @@ arbitrage_UI <- function(id) {
         color = "primary"
       ) |>
         htmltools::tagAppendAttributes(style = "width: inherit;")
-    ))
+    )),
+    
+    shiny::uiOutput(ns("arbitrage_result"))
     
   
   )
@@ -62,6 +65,23 @@ arbitrage_server <- function(id) {
     odd1  <- mod_numeric_input$numeric_input_server("arbitrage_odd1")
     odd2  <- mod_numeric_input$numeric_input_server("arbitrage_odd2")
     stake <- mod_numeric_input$numeric_input_server("total_stake")
+    
+    shiny::observeEvent(input$submit_value, {
+      #browser()
+      arbitrage_exist <- check_arbitrage$check_arbitrage(odd1 = odd1(), 
+                                                         odd2 = odd2())
+      
+      if (isTRUE(arbitrage_exist)) {
+        output$arbitrage_result <- shiny::renderUI({
+          shiny::h2("Exists")
+        })
+      } else {
+        output$arbitrage_result <- shiny::renderUI({
+          shiny::h2("No Exists")
+        })
+      }
+    })
+    
   })
   
 }
