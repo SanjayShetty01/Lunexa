@@ -1,3 +1,4 @@
+#' @export
 check_arbitrage <- function(odd1, odd2){
   
   stopifnot(
@@ -6,8 +7,8 @@ check_arbitrage <- function(odd1, odd2){
   )
   
   stopifnot(
-    "Odd 1 must be >= 0." = is.numeric(odd1) && odd1 >= 0,
-    "Odd 2 must be >= 0." = is.numeric(odd2) && odd2 >= 0
+    "Odd 1 must be >= 0." = odd1 >= 0,
+    "Odd 2 must be >= 0." = odd2 >= 0
   )
   
   
