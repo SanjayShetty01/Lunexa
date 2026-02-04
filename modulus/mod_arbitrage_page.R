@@ -1,6 +1,7 @@
 box::use(./components/mod_numeric_input)
 box::use(htmltools)
 box::use(shinyWidgets)
+box::use(shinyalert)
 box::use(../functions/check_arbitrage)
 
 #'@export
@@ -68,18 +69,30 @@ arbitrage_server <- function(id) {
     
     shiny::observeEvent(input$submit_value, {
       #browser()
-      arbitrage_exist <- check_arbitrage$check_arbitrage(odd1 = odd1(), 
-                                                         odd2 = odd2())
+      tryCatch({
+        
+        stopifnot(
+          "Enter both the Odds and the Stake." = !is.na(odd1()) && 
+            !is.na(odd2()) && !is.na(stake())
+          )
+        
+        arbitrage_exist <- check_arbitrage$check_arbitrage(odd1 = odd1(), 
+                                                           odd2 = odd2())
+        
+        if (isTRUE(arbitrage_exist)) {
+          output$arbitrage_result <- shiny::renderUI({
+            shiny::h2("Exists")
+          })
+        } else {
+          output$arbitrage_result <- shiny::renderUI({
+            shiny::h2("No Exists")
+          })
+        }
+      }, error = function(e) {
+        shinyalert::shinyalert(title = "Error", type = "error",
+                               text = e$message)
+      })
       
-      if (isTRUE(arbitrage_exist)) {
-        output$arbitrage_result <- shiny::renderUI({
-          shiny::h2("Exists")
-        })
-      } else {
-        output$arbitrage_result <- shiny::renderUI({
-          shiny::h2("No Exists")
-        })
-      }
     })
     
   })
