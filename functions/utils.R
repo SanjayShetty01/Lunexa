@@ -1,5 +1,4 @@
 #' @export
-
 calculate_impl_prob(odd1, odd2) {
   
   stopifnot(

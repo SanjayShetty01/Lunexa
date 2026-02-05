@@ -1,3 +1,5 @@
+box::use(./utils)
+
 #' @export
 check_arbitrage <- function(odd1, odd2){
   
@@ -11,8 +13,7 @@ check_arbitrage <- function(odd1, odd2){
     "Odd 2 must be >= 0." = odd2 >= 0
   )
   
+  impl_prob_sum <- utils$calculate_impl_prob_sum(odd1 = odd1, odd2 = odd2)
   
-  rhs = odd1/(odd1 - 1)
-  
-  ifelse(odd2 > rhs, T, F)
+  ifelse(impl_prob_sum < 1 , T, F)
 }
