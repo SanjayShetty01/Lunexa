@@ -96,8 +96,13 @@ post_bet_hedge_page_server <- function(id) {
       tryCatch({
         stopifnot(
           "Enter both the Odds and the Stake." = !is.na(wager()) && 
-            !is.na(odd()) && !is.na(exp_profit())
+            !is.na(odd())
         )
+        
+        stopifnot("Enter Expected Amount/Percentage" = 
+                    identical(input$calculation_type,'breakeven')
+                    || !is.na(exp_profit())
+                  )
         
         output$post_bet_arbitrage <- shiny::renderUI({
           shiny::h2("LOL")

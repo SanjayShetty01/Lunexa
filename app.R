@@ -22,6 +22,7 @@ ui <- shiny::fluidPage(
   bs4Dash::dashboardPage(
     header = header,
     sidebar = sidebar,
+    
     body = bs4DashBody(mod_tab_main_page$main_body("app")),
   )
 )
