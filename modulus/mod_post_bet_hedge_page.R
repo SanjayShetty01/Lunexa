@@ -72,15 +72,15 @@ post_bet_hedge_page_UI <- function(id) {
       8,
       offset = 2,
       shinyWidgets::actionBttn(
-        inputId = ns("submit_value"),
+        inputId = ns("calculate_post_bet_arbitrage"),
         label = "Calculate Arbitrage",
         style = "material-flat",
         color = "primary"
       ) |>
         htmltools::tagAppendAttributes(style = "width: inherit;")
-    ))
+    )),
     
-    
+    shiny::uiOutput(ns("post_bet_arbitrage"))
   )
 }
 
@@ -88,9 +88,28 @@ post_bet_hedge_page_UI <- function(id) {
 post_bet_hedge_page_server <- function(id) {
   shiny::moduleServer(id, function(input, output, session){
     
-    odd1  <- mod_numeric_input$numeric_input_server("arbitrage_odd1")
-    odd2  <- mod_numeric_input$numeric_input_server("arbitrage_odd2")
-    stake <- mod_numeric_input$numeric_input_server("total_stake")
+    wager  <- mod_numeric_input$numeric_input_server("entered_wage")
+    odd  <- mod_numeric_input$numeric_input_server("entered_odd")
+    exp_profit <- mod_numeric_input$numeric_input_server("expected_profit_amt")
+    
+    shiny::observeEvent(input$calculate_post_bet_arbitrage, {
+      tryCatch({
+        stopifnot(
+          "Enter both the Odds and the Stake." = !is.na(wager()) && 
+            !is.na(odd()) && !is.na(exp_profit())
+        )
+        
+        output$post_bet_arbitrage <- shiny::renderUI({
+          shiny::h2("LOL")
+        })
+        
+      }, error = function(e) {
+        shinyalert::shinyalert(title = "Error", type = "error",
+                               text = e$message)
+      }
+      )
+    })
+    
   })
   
 }

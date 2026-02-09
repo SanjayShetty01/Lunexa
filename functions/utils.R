@@ -1,5 +1,5 @@
 #' @export
-calculate_impl_prob(odd1, odd2) {
+calculate_impl_prob_sum <- function(odd1, odd2) {
   
   stopifnot(
     "Odd 1 must be numeric." = is.numeric(odd1) && !is.na(odd1),
@@ -11,5 +11,5 @@ calculate_impl_prob(odd1, odd2) {
     "Odd 2 must be >= 0." = odd2 >= 0
   )
   
-  return((1/odd1) + (1/ood2))
+  return((1/odd1) + (1/odd2))
 }
