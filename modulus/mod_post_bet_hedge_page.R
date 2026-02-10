@@ -1,6 +1,7 @@
 box::use(./components/mod_numeric_input)
 box::use(htmltools)
 box::use(shinyWidgets)
+box::use(../functions/post_bet_arbitrage_calculation)
 
 #'@export
 post_bet_hedge_page_UI <- function(id) {
@@ -90,7 +91,8 @@ post_bet_hedge_page_server <- function(id) {
     
     wager  <- mod_numeric_input$numeric_input_server("entered_wage")
     odd  <- mod_numeric_input$numeric_input_server("entered_odd")
-    exp_profit <- mod_numeric_input$numeric_input_server("expected_profit_amt")
+    exp_profit_amt <- mod_numeric_input$numeric_input_server("expected_profit_amt")
+    exp_profit_pct <- mod_numeric_input$numeric_input_server("expected_profit_pct")
     
     shiny::observeEvent(input$calculate_post_bet_arbitrage, {
       tryCatch({
@@ -101,11 +103,57 @@ post_bet_hedge_page_server <- function(id) {
         
         stopifnot("Enter Expected Amount/Percentage" = 
                     identical(input$calculation_type,'breakeven')
-                    || !is.na(exp_profit())
+                    || !is.na(exp_profit_amt()) || 
+                                !is.na(exp_profit_pct())
                   )
         
+        if(identical(input$calculation_type, "breakeven")) {
+          stake_2 <- post_bet_arbitrage_calculation$max_hedge_stake(
+            stake_1 = wager(),
+            odd_1 = odd()
+          )
+          
+          required_odd <- post_bet_arbitrage_calculation$min_hedge_odds(
+            stake_1 = wager(),
+            stake_2 = stake_2
+            )
+        } else if(identical(input$calculation_type, "guaranteed_rupees")){
+          max_required_stake_2 <- 
+            post_bet_arbitrage_calculation$max_hedge_stake_for_profit(
+            stake_1 = wager(),
+            odd_1 = odd(),
+            profit = exp_profit_amt())
+          
+          min_required_odd <- post_bet_arbitrage_calculation$min_hedge_odds_for_profit(
+            stake_1 = wager(),
+            stake_2 = max_required_stake_2,
+            profit = exp_profit_amt()
+          )
+          
+          required_odd <- post_bet_arbitrage_calculation$min_hedge_odds_absolute(
+            stake_1 = wager(),
+            odd_1 = odd(),
+            profit = exp_profit_amt()
+          )
+          
+          stake_2 <- post_bet_arbitrage_calculation$min_hedge_stake_for_profit(
+            stake_1 = wager(),
+            odd_2 = required_odd,
+            profit = exp_profit_amt()
+          )
+        } else if(identical(input$calculation_type, "guaranteed_percent")) {
+          
+        } else {
+          stop("Unexpected Error")
+        }
+        
         output$post_bet_arbitrage <- shiny::renderUI({
-          shiny::h2("LOL")
+          shiny::tagList(
+            shiny::h2("LOL"),
+            shiny::h2(required_odd),
+            shiny::h2(stake_2)
+          )
+          
         })
         
       }, error = function(e) {

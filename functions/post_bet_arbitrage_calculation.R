@@ -1,15 +1,34 @@
 #' @export
-breakeven_odds <- function(odds) {
-  odds/(odds - 1)
+max_hedge_stake <- function(stake_1, odd_1) {
+  stake_1 * (odd_1 - 1)
 }
 
 #' @export
-hedge_stakes <- function(stake_1, odd_1, odd_2) {
-  (stake_1 * (odd_1 - 1)) / odd_2
+min_hedge_odds <- function(stake_1, stake_2) {
+  (stake_1 + stake_2) / stake_2
 }
 
+# Max hedge stake allowed for profit profit
 #' @export
-profit_odds <- function(stake_1, odd_1, G) {
-  (stake_1 * (odd_1 - 1)) / (stake_1 + G)
+max_hedge_stake_for_profit <- function(stake_1, odd_1, profit) {
+  stake_1 * (odd_1 - 1) - profit
+}
+
+# Minimum hedge odds for profit profit (given stake)
+#' @export
+min_hedge_odds_for_profit <- function(stake_1, stake_2, profit) {
+  1 + (stake_1 + profit) / stake_2
+}
+
+# Minimum hedge stake for profit profit (given odds)
+#' @export
+min_hedge_stake_for_profit <- function(stake_1, odd_2, profit) {
+  (stake_1 + profit) / (odd_2 - 1)
+}
+
+# Absolute minimum hedge odds for profit profit
+#' @export
+min_hedge_odds_absolute <- function(stake_1, odd_1, profit) {
+  (stake_1 * odd_1) / (stake_1 * (odd_1 - 1) - profit)
 }
 
