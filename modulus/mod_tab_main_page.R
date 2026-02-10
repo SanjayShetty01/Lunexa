@@ -28,7 +28,7 @@ main_body_server <- function(id){
   
   shiny::moduleServer(id ,function(id,input, output, session){
     mod_arbitrage_page$arbitrage_server("arbitrage_tab")
-    
+    mod_post_bet_hedge_page$post_bet_hedge_page_server("bet_hedge_tab")
   })
 }
 
