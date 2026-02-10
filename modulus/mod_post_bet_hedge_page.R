@@ -149,7 +149,6 @@ post_bet_hedge_page_server <- function(id) {
         
         output$post_bet_arbitrage <- shiny::renderUI({
           shiny::tagList(
-            shiny::h2("LOL"),
             shiny::h2(required_odd),
             shiny::h2(stake_2)
           )
