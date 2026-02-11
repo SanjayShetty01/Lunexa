@@ -92,7 +92,13 @@ post_bet_hedge_page_server <- function(id) {
     wager  <- mod_numeric_input$numeric_input_server("entered_wage")
     odd  <- mod_numeric_input$numeric_input_server("entered_odd")
     exp_profit_amt <- mod_numeric_input$numeric_input_server("expected_profit_amt")
-    exp_profit_pct <- mod_numeric_input$numeric_input_server("expected_profit_pct")
+    exp_profit_pct_raw <- mod_numeric_input$numeric_input_server("expected_profit_pct")
+    
+    
+    exp_profit_pct <- shiny::reactive({
+      shiny::req(exp_profit_pct_raw())
+      exp_profit_pct_raw() / 100
+    })
     
     shiny::observeEvent(input$calculate_post_bet_arbitrage, {
       tryCatch({
@@ -142,6 +148,17 @@ post_bet_hedge_page_server <- function(id) {
             profit = exp_profit_amt()
           )
         } else if(identical(input$calculation_type, "guaranteed_percent")) {
+          
+          required_odd <- post_bet_arbitrage_calculation$max_hedge_stake_pct(
+            stake_1 = wager(),
+            odd_1 = odd(),
+            p = exp_profit_pct()
+          )
+          
+          stake_2 <- post_bet_arbitrage_calculation$min_hedge_odds_pct_absolute(
+            odd_1 = odd(),
+            p = exp_profit_pct()
+          )
           
         } else {
           stop("Unexpected Error")
