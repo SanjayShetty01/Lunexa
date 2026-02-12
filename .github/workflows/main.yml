@@ -33,6 +33,11 @@ jobs:
 
       - name: Setup R dependencies
         uses: r-lib/actions/setup-renv@v2
+        
+      - name: Run tests
+        run: | 
+          Rscript -e 'install.packages("testthat")'
+          Rscript -e 'testthat::test_dir("tests/testthat")'
    
       - name: Push to shinyapps.io
         if: github.event_name == 'push'
