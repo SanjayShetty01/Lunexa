@@ -6,7 +6,16 @@ box::use(../functions/check_arbitrage)
 box::use(../functions/utils)
 box::use(../functions/stake_distribution_calculation)
 
-#'@export
+#' UI for the pre-bet arbitrage calculator module
+#'
+#' Builds the input form and result area for the arbitrage calculation,
+#' including odds, total stake inputs and the calculate button.
+#'
+#' @param id Character string used as the Shiny module namespace.
+#'
+#' @return A Shiny UI element (to be included inside a page layout).
+#'
+#' @export
 arbitrage_UI <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
@@ -70,7 +79,19 @@ arbitrage_UI <- function(id) {
   )
 }
 
-#'@export
+#' Server logic for the pre-bet arbitrage calculator module
+#'
+#' Validates inputs, checks whether an arbitrage opportunity exists,
+#' computes the optimal stake distribution across the two odds and
+#' renders a formatted summary in the UI.
+#'
+#' @param id Character string used as the Shiny module namespace.
+#'
+#' @return The server function is called for its side effects
+#'   (rendering outputs and registering reactives) and does not
+#'   return a value.
+#'
+#' @export
 arbitrage_server <- function(id) {
   shiny::moduleServer(id, function(input, output, session){
     

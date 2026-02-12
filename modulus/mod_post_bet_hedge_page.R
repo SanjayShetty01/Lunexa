@@ -3,7 +3,17 @@ box::use(htmltools)
 box::use(shinyWidgets)
 box::use(../functions/post_bet_arbitrage_calculation)
 
-#'@export
+#' UI for the post-bet hedge calculator module
+#'
+#' Builds the input form and result area for post-bet hedging, including
+#' the original wager, odds, desired profit mode (breakeven, fixed amount,
+#' percentage) and the calculate button.
+#'
+#' @param id Character string used as the Shiny module namespace.
+#'
+#' @return A Shiny UI element (to be included inside a page layout).
+#'
+#' @export
 post_bet_hedge_page_UI <- function(id) {
   ns <- shiny::NS(id)
   shiny::tagList(
@@ -94,7 +104,19 @@ post_bet_hedge_page_UI <- function(id) {
   )
 }
 
-#'@export
+#' Server logic for the post-bet hedge calculator module
+#'
+#' Validates inputs and, based on the selected calculation type, computes
+#' the required hedge stake and odds to either breakeven or lock in a chosen
+#' profit (absolute or percentage), then renders a formatted summary.
+#'
+#' @param id Character string used as the Shiny module namespace.
+#'
+#' @return The server function is called for its side effects
+#'   (rendering outputs and registering reactives) and does not
+#'   return a value.
+#'
+#' @export
 post_bet_hedge_page_server <- function(id) {
   shiny::moduleServer(id, function(input, output, session){
     
