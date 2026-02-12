@@ -110,18 +110,30 @@ arbitrage_server <- function(id) {
         
         
         
-        arbitrage_exist <- check_arbitrage$check_arbitrage(odd1 = odd1(), 
-                                                           odd2 = odd2())
-        implied_prob_sum <- utils$calculate_impl_prob_sum(odd1 = odd1(),
-                                                      odd2 = odd2())
+        arbitrage_exist <- check_arbitrage$check_arbitrage(
+          odd1 = odd1(), 
+          odd2 = odd2()
+        )
+        implied_prob_sum <- utils$calculate_impl_prob_sum(
+          odd1 = odd1(),
+          odd2 = odd2()
+        )
         
-        stake_1 <- stake_distribution_calculation$calculate_stake(odd = odd1(),
-                                                                  total_stake = stake(),
-                                                                  impl_prob = implied_prob_sum)
+        stake_1 <- stake_distribution_calculation$calculate_stake(
+          odd = odd1(),
+          total_stake = stake(),
+          impl_prob = implied_prob_sum
+        )
         
-        stake_2 <- stake_distribution_calculation$calculate_stake(odd = odd2(),
-                                                                  total_stake = stake(),
-                                                                  impl_prob = implied_prob_sum)
+        stake_2 <- stake_distribution_calculation$calculate_stake(
+          odd = odd2(),
+          total_stake = stake(),
+          impl_prob = implied_prob_sum
+        )
+        
+        stake_1_color <- if (stake_1 < 0) "#c0392b" else "#27ae60"
+        stake_2_color <- if (stake_2 < 0) "#c0392b" else "#27ae60"
+        implied_prob_color <- if (implied_prob_sum < 0) "#c0392b" else "#27ae60"
         
         if (isTRUE(arbitrage_exist)) {
           output$arbitrage_result <- shiny::renderUI({
@@ -138,19 +150,28 @@ arbitrage_server <- function(id) {
                   shiny::tags$tr(
                     shiny::tags$th("Stake on Odd 1"),
                     shiny::tags$td(
-                      shiny::span(style = "color: #1a5276; font-weight: 600;", round(stake_1, 2))
+                      shiny::span(
+                        style = sprintf("color: %s; font-weight: 600;", stake_1_color),
+                        round(stake_1, 2)
+                      )
                     )
                   ),
                   shiny::tags$tr(
                     shiny::tags$th("Stake on Odd 2"),
                     shiny::tags$td(
-                      shiny::span(style = "color: #1a5276; font-weight: 600;", round(stake_2, 2))
+                      shiny::span(
+                        style = sprintf("color: %s; font-weight: 600;", stake_2_color),
+                        round(stake_2, 2)
+                      )
                     )
                   ),
                   shiny::tags$tr(
                     shiny::tags$th("Sum of implied probabilities"),
                     shiny::tags$td(
-                      shiny::span(style = "color: #1a5276; font-weight: 600;", round(implied_prob_sum, 2))
+                      shiny::span(
+                        style = sprintf("color: %s; font-weight: 600;", implied_prob_color),
+                        round(implied_prob_sum, 2)
+                      )
                     )
                   )
                 )
