@@ -1,3 +1,10 @@
+#' Sidebar menu definition for the application
+#'
+#' Builds the \code{bs4Dash} sidebar menu with navigation items for the
+#' introduction, arbitrage calculator, and post-bet hedge tabs.
+#'
+#' @return A \code{bs4Dash::sidebarMenu} UI object.
+#'
 #' @export
 sidebarMenu <- function(){
   bs4Dash::sidebarMenu(
