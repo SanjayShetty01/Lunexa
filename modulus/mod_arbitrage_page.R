@@ -43,19 +43,28 @@ arbitrage_UI <- function(id) {
     )),
     
     shiny::br(),
-    shiny::fluidRow(shiny::column(
-      8,
-      offset = 2,
-      shinyWidgets::actionBttn(
-        inputId = ns("submit_value"),
-        label = "Calculate Arbitrage",
-        style = "material-flat",
-        color = "primary"
-      ) |>
-        htmltools::tagAppendAttributes(style = "width: inherit;")
-    )),
+    shiny::fluidRow(
+      shiny::column(
+        8,
+        offset = 2,
+        shinyWidgets::actionBttn(
+          inputId = ns("submit_value"),
+          label = "Calculate Arbitrage",
+          style = "material-flat",
+          color = "primary"
+        ) |>
+          htmltools::tagAppendAttributes(style = "width: inherit;")
+      )
+    ),
     
-    shiny::uiOutput(ns("arbitrage_result"))
+    shiny::br(),
+    shiny::fluidRow(
+      shiny::column(
+        8,
+        offset = 2,
+        shiny::uiOutput(ns("arbitrage_result"))
+      )
+    )
     
   
   )
@@ -95,13 +104,54 @@ arbitrage_server <- function(id) {
         
         if (isTRUE(arbitrage_exist)) {
           output$arbitrage_result <- shiny::renderUI({
-            shiny::tagList(shiny::h2("Exists"),
-                           shiny::h2(stake_1),
-                           shiny::h2(stake_2))
+            shiny::wellPanel(
+              shiny::h3(
+                shiny::tags$span(
+                  class = "label label-success",
+                  "Arbitrage opportunity found"
+                )
+              ),
+              shiny::tags$table(
+                class = "table table-striped table-condensed",
+                shiny::tags$tbody(
+                  shiny::tags$tr(
+                    shiny::tags$th("Stake on Odd 1"),
+                    shiny::tags$td(
+                      shiny::span(style = "color: #1a5276; font-weight: 600;", round(stake_1, 2))
+                    )
+                  ),
+                  shiny::tags$tr(
+                    shiny::tags$th("Stake on Odd 2"),
+                    shiny::tags$td(
+                      shiny::span(style = "color: #1a5276; font-weight: 600;", round(stake_2, 2))
+                    )
+                  ),
+                  shiny::tags$tr(
+                    shiny::tags$th("Sum of implied probabilities"),
+                    shiny::tags$td(
+                      shiny::span(style = "color: #1a5276; font-weight: 600;", round(implied_prob_sum, 2))
+                    )
+                  )
+                )
+              )
+            )
           })
         } else {
           output$arbitrage_result <- shiny::renderUI({
-            shiny::h2("No Exists")
+            shiny::wellPanel(
+              shiny::h3(
+                shiny::tags$span(
+                  class = "label label-danger",
+                  "No arbitrage opportunity"
+                )
+              ),
+              shiny::p(
+                shiny::span(
+                  style = "color: #c0392b;",
+                  "With the current odds and stake, there is no arbitrage opportunity."
+                )
+              )
+            )
           })
         }
       }, error = function(e) {

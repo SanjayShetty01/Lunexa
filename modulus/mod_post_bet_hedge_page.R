@@ -69,19 +69,28 @@ post_bet_hedge_page_UI <- function(id) {
     ),
     
     shiny::br(),
-    shiny::fluidRow(shiny::column(
-      8,
-      offset = 2,
-      shinyWidgets::actionBttn(
-        inputId = ns("calculate_post_bet_arbitrage"),
-        label = "Calculate Arbitrage",
-        style = "material-flat",
-        color = "primary"
-      ) |>
-        htmltools::tagAppendAttributes(style = "width: inherit;")
-    )),
+    shiny::fluidRow(
+      shiny::column(
+        8,
+        offset = 2,
+        shinyWidgets::actionBttn(
+          inputId = ns("calculate_post_bet_arbitrage"),
+          label = "Calculate Arbitrage",
+          style = "material-flat",
+          color = "primary"
+        ) |>
+          htmltools::tagAppendAttributes(style = "width: inherit;")
+      )
+    ),
     
-    shiny::uiOutput(ns("post_bet_arbitrage"))
+    shiny::br(),
+    shiny::fluidRow(
+      shiny::column(
+        8,
+        offset = 2,
+        shiny::uiOutput(ns("post_bet_arbitrage"))
+      )
+    )
   )
 }
 
@@ -165,11 +174,50 @@ post_bet_hedge_page_server <- function(id) {
         }
         
         output$post_bet_arbitrage <- shiny::renderUI({
-          shiny::tagList(
-            shiny::h2(required_odd),
-            shiny::h2(stake_2)
-          )
           
+          description <- switch(
+            input$calculation_type,
+            "breakeven" = "Values needed to fully hedge and break even:",
+            "guaranteed_rupees" = "Values needed to lock in the requested profit (amount):",
+            "guaranteed_percent" = "Values needed to lock in the requested profit (percentage):",
+            "Hedge recommendation:"
+          )
+
+          required_odd_color <- if (required_odd < 0) "#c0392b" else "#27ae60"
+          stake_2_color <- if (stake_2 < 0) "#c0392b" else "#27ae60"
+          
+          shiny::wellPanel(
+            shiny::h3(
+              shiny::tags$span(
+                class = "label label-primary",
+                "Post-bet hedge recommendation"
+              )
+            ),
+            shiny::p(description),
+            shiny::tags$table(
+              class = "table table-striped table-condensed",
+              shiny::tags$tbody(
+                shiny::tags$tr(
+                  shiny::tags$th("Required hedge odd"),
+                  shiny::tags$td(
+                    shiny::span(
+                      style = sprintf("color: %s; font-weight: 600;", required_odd_color),
+                      round(required_odd, 2)
+                    )
+                  )
+                ),
+                shiny::tags$tr(
+                  shiny::tags$th("Stake on hedge bet"),
+                  shiny::tags$td(
+                    shiny::span(
+                      style = sprintf("color: %s; font-weight: 600;", stake_2_color),
+                      round(stake_2, 2)
+                    )
+                  )
+                )
+              )
+            )
+          )
         })
         
       }, error = function(e) {
