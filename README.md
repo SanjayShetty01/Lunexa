@@ -30,8 +30,8 @@ When one exists, it calculates the exact stake distribution required to guarante
 
 If you have already placed a bet and the odds change later, Lunexa helps you determine whether you can hedge to achieve:
 
--   Break-even\
--   Percentage profit\
+-   Break-even
+-   Percentage profit
 -   Minimum profit amount
 
 You select your target outcome, and Lunexa calculates the required hedge stake accordingly.
