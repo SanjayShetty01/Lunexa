@@ -244,7 +244,7 @@ post_bet_hedge_page_server <- function(id) {
         
       }, error = function(e) {
         shinyalert::shinyalert(title = "Error", type = "error",
-                               text = e$message)
+                               text = e$message, className = 'alert')
       }
       )
     })
