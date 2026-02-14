@@ -1,4 +1,4 @@
-[![deploy-shiny](https://github.com/SanjayShetty01/Lunexa/actions/workflows/main.yml/badge.svg)](https://github.com/SanjayShetty01/Lunexa/actions/workflows/main.yml) \# Lunexa \## Arbitrage & Hedge Calculator
+[![deploy-shiny](https://github.com/SanjayShetty01/Lunexa/actions/workflows/main.yml/badge.svg)](https://github.com/SanjayShetty01/Lunexa/actions/workflows/main.yml) \# Lunexa 
 
 # Lunexa
 ## Arbitrage & Hedge Calculator
