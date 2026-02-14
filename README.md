@@ -38,7 +38,7 @@ You select your target outcome, and Lunexa calculates the required hedge stake a
 
 ------------------------------------------------------------------------
 
-Screenshots
+## Screenshots
 
 ![](./doc/tab_1.png) ![](./doc/tab_2.png) ![](./doc/tab_3.png)
 
