@@ -50,8 +50,8 @@ All calculations are transparent and based strictly on the numerical inputs you 
 
 Lunexa does not:
 
--   Predict outcomes\
--   Forecast future odds\
+-   Predict outcomes
+-   Forecast future odds
 -   Provide betting advice
 
 ------------------------------------------------------------------------
