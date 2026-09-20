@@ -1,12 +1,43 @@
+/* ================================================================
+   Numeric Input — Left-aligned label layout (flexbox)
+   ================================================================ */
+
 .input-left-label {
-  display: ruby;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .input-left-label span {
-  min-width: 30%;
-  color: #374151;
+  min-width: 35%;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #334155;
+  white-space: nowrap;
 }
 
-.input-left-label input {
-  width: 60%;
+.input-left-label .form-group {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.input-left-label input[type='number'] {
+  width: 100%;
+  border-radius: 8px;
+  border: 1.5px solid #e2e8f0;
+  padding: 0.55rem 0.85rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.input-left-label input[type='number']:hover {
+  border-color: #ff851b;
+}
+
+.input-left-label input[type='number']:focus {
+  border-color: #ff851b;
+  box-shadow: 0 0 0 3px rgba(255, 133, 27, 0.15);
+  outline: none;
 }
