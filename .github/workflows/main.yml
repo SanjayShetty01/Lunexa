@@ -40,13 +40,11 @@ jobs:
         
       - name: Run tests
         run: | 
-          Rscript -e 'install.packages("testthat")'
           Rscript -e 'testthat::test_dir("tests/testthat")'
    
       - name: Push to shinyapps.io
         if: github.event_name == 'push'
         run: |
-          install.packages("rsconnect", repos="http://cran.us.r-project.org")
-          rsconnect::setAccountInfo(name="${{secrets.SHINY_ACC_NAME}}", token="${{secrets.TOKEN}}", secret="${{secrets.SECRET}}")
-          rsconnect::deployApp(appName = 'Lunexa', forceUpdate = TRUE)
-        shell: Rscript {0}
+          Rscript -e 'rsconnect::setAccountInfo(name="${{secrets.SHINY_ACC_NAME}}", token="${{secrets.TOKEN}}", secret="${{secrets.SECRET}}")'
+          Rscript -e 'rsconnect::deployApp(appName = "Lunexa", forceUpdate = TRUE)'
+        shell: bash
