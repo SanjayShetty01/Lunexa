@@ -2,6 +2,7 @@ library(shiny)
 library(bs4Dash)
 
 box::use(
+  ./modulus/mod_branding,
   ./modulus/mod_arbitrage_page,
   ./modulus/mod_sidebar_tab,
   ./modulus/mod_tab_main_page,
@@ -9,12 +10,7 @@ box::use(
   ./modulus/mod_theme,
 )
 
-header <- bs4Dash::dashboardHeader(
-  title = bs4Dash::dashboardBrand(
-    title = "Lunexa",
-    color = "white"
-  )
-)
+header <- bs4Dash::dashboardHeader(title = mod_branding$title)
 
 sidebar <- bs4Dash::dashboardSidebar(
   mod_sidebar_tab$sidebarMenu(),

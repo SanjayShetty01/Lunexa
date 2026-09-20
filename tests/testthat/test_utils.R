@@ -11,7 +11,7 @@ test_that("calculate_impl_prob_sum validates numeric, non-negative odds", {
 
   expect_error(
     utils$calculate_impl_prob_sum(-1, 2),
-    "Odd 1 must be >= 0",
+    "Odd 1 must be > 0",
     fixed = TRUE
   )
 })

@@ -17,13 +17,13 @@ test_that("check_arbitrage validates numeric, non-negative odds", {
 
   expect_error(
     check_arbitrage$check_arbitrage(-1, 2),
-    "Odd 1 must be >= 0",
+    "Odd 1 must be > 0",
     fixed = TRUE
   )
 
   expect_error(
     check_arbitrage$check_arbitrage(2, -1),
-    "Odd 2 must be >= 0",
+    "Odd 2 must be > 0",
     fixed = TRUE
   )
 })

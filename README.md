@@ -1,6 +1,6 @@
 [![deploy-shiny](https://github.com/SanjayShetty01/Lunexa/actions/workflows/main.yml/badge.svg)](https://github.com/SanjayShetty01/Lunexa/actions/workflows/main.yml) 
 
-# Lunexa
+# <img src="./www/logo.svg" width="25" height="27"> Lunexa
 ## Arbitrage & Hedge Calculator
 Lunexa is a precision-focused betting calculator designed to help you identify and manage risk-free opportunities using real market odds.
 
