@@ -11,17 +11,18 @@ sidebarMenu <- function(){
     bs4Dash::menuItem(
       text = "Introduction",
       tabName = "introduction",
-      icon = shiny::icon("eye")
+      icon = shiny::icon("book-open")
     ),
+    bs4Dash::sidebarHeader("Calculators"),
     bs4Dash::menuItem(
       text = "Arbitrage",
       tabName = "arbitrage_tab",
-      icon = shiny::icon("table")
+      icon = shiny::icon("scale-balanced")
     ),
     bs4Dash::menuItem(
       text = "Post Bet Hedge",
       tabName = "post_bet_hedge",
-      icon = shiny::icon("chart-simple")
+      icon = shiny::icon("shield-halved")
     )
   )
 }
